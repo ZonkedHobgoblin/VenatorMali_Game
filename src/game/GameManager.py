@@ -4,7 +4,7 @@ Initalises pygame and managers, then starts core game loop and managers
 """
 import logging
 import pygame
-from . import settings
+from dev import settings
 
 logger = logging.getLogger(__name__)
 class VenatorMaliGame:
@@ -34,10 +34,17 @@ class VenatorMaliGame:
         self.window = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
         pygame.display.set_caption("Venator Mali")
         self.window.fill((50,50,0))
-        logger.info("Window Created")
+        logger.info("Window setup complete")
+        
+        # pygame setup
+        self.clock = pygame.time.Clock()
+        logger.info("Pygame setup complete")
+        
         while self.running:
             
             # Temp
+            dt = self.clock.tick(settings.FPS) / 1000.0  # convert to seconds
+            dt = min(dt, 1 / 30)  # clamp if debugging causes huge dt
             self.handle_events()
             self.draw()
             
