@@ -39,13 +39,13 @@ class InputManager:
         Updates bind states from passed events by GM
         """
         if event.type == pygame.KEYDOWN:
-            for action, key in self.bindings.items:
+            for action, key in self.bindings.items():
                 if event.key == key:
                     self.pressed[action] = True
                     self.held[action] = True
                     
         elif event.type == pygame.KEYUP:
-            for action, key in self.bindings.items:
+            for action, key in self.bindings.items():
                 if event.key == key:
                     self.held[action] = False
                     self.released[action] = True
