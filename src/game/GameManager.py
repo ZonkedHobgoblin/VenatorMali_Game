@@ -4,7 +4,7 @@ Initalises pygame and managers, then starts core game loop and managers
 """
 import logging
 import pygame
-from game.managers import InputManager
+from game.managers.InputManager import InputManager
 from dev import settings
 
 logger = logging.getLogger(__name__)
@@ -53,12 +53,15 @@ class VenatorMaliGame:
             self.input_manager.update_start_frame()
             
             for event in pygame.event.get():
-                if event.tpye == pygame.QUIT():
+                if event.type == pygame.QUIT:
                     self.running = False
                     break
                 
                 self.input_manager.process_event(event)
             
+            if self.input_manager.is_pressed("pause"):
+                self.running = False
+                break
             
             # Temp
             self.draw()
