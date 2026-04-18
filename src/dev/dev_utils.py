@@ -6,7 +6,7 @@ class LoggerSetup:
     def initialize():
         """
         Set up the logger for usage in logging over prints
-        Logs to mediafetch.log in same dir as .py
+        Logs to venatormali.log in same dir as .py
         Is rotating (At 100kb size on new creation)
         """
         handler = RotatingFileHandler(
