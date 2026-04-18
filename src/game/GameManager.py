@@ -41,10 +41,6 @@ class VenatorMaliGame:
         # pygame setup
         self.clock = pygame.time.Clock()
         logger.info("Pygame setup complete")
-        
-        # test
-        self.x = 0
-        
         self.core_loop()
         
     def core_loop(self):
@@ -65,15 +61,8 @@ class VenatorMaliGame:
                 
             # Check if game paused
             if self.paused is True:
-                if self.input_manager.is_pressed("pause"):
-                    self.paused = False
                 continue
-            elif self.input_manager.is_pressed("pause"):
-                self.paused = True
             
-            print(self.x)
-            self.x += 1
-            # Temp
             self.draw()
             
         pygame.quit()
