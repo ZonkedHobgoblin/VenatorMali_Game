@@ -20,7 +20,7 @@ if __name__ == "__main__":
         game = VenatorMaliGame()
         game.start()
         
-    except Exception as error:
+    except Exception:
         logger = logging.getLogger(__name__)
         logger.exception("Critical error occurred")
         sys.exit(1)

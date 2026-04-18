@@ -13,3 +13,6 @@ pickups/__pycache__/
 venv/
 env/
 assets/levels/RunNGun.tiled-session
+
+# Log File
+*.log
