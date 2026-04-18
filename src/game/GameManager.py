@@ -42,9 +42,11 @@ class VenatorMaliGame:
         
         while self.running:
             
-            # Temp
+            # Handle DeltaTime
             dt = self.clock.tick(settings.FPS) / 1000.0  # convert to seconds
             dt = min(dt, 1 / 30)  # clamp if debugging causes huge dt
+            
+            # Temp
             self.handle_events()
             self.draw()
             
