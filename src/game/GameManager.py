@@ -32,8 +32,9 @@ class VenatorMaliGame:
         
         # Render Window VVVV
         self.window = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
-        pygame.display.set_caption("Run & Gun Prototype (Pygame-CE)")
+        pygame.display.set_caption("Venator Mali")
         self.window.fill((50,50,0))
+        logger.info("Window Created")
         while self.running:
             
             # Temp
@@ -49,9 +50,6 @@ class VenatorMaliGame:
         # START screen + UI should be fixed-size, so they draw directly to the window.
         if True:
             self.window.fill((20, 22, 30))
-            #self.draw_center_text("RUN & GUN PROTOTYPE", y=170, big=True, target=self.window)
-            #self.draw_center_text("Press ENTER to start", y=260, target=self.window)
-            #self.draw_center_text("A/D move, W jump, SPACE shoot", y=310, target=self.window)
             pygame.display.flip()
             return
         
