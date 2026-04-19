@@ -41,6 +41,7 @@ class VenatorMaliGame:
         # pygame setup
         self.clock = pygame.time.Clock()
         logger.info("Pygame setup complete")
+        print("Game started")
         self.core_loop()
         
     def core_loop(self):
