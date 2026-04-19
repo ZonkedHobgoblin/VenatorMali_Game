@@ -11,7 +11,7 @@ class InputManager:
         self.bindings = {
             "move_left": pygame.K_a,
             "move_right": pygame.K_d,
-            "jump": [pygame.K_SPACE, pygame.K_w],
+            "jump": pygame.K_SPACE, # list support so it can be W and Space?
             "attack1": pygame.K_q,
             "attack2": pygame.K_e,
             "respawn": pygame.K_r,

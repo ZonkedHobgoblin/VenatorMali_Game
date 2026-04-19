@@ -25,4 +25,4 @@ class GameObject:
         if not self.is_active:
             return
             
-        self.rect.center = (self.pos.x, self.pos.y)
+        self.hitbox_rect.center = (self.pos.x, self.pos.y)
