@@ -4,6 +4,7 @@ Initalises pygame and managers, then starts core game loop and managers
 """
 import logging
 import pygame
+from game.managers.SceneManager import SceneManager
 from game.managers.InputManager import InputManager
 from dev import settings
 
@@ -12,14 +13,16 @@ class VenatorMaliGame:
     
     
     def __init__(self):
-        self.scene_manager = 0
-        self.camera_manager = 0
+        self.scene_manager = SceneManager()
+        # self.camera_manager = 0 move to scene man
         self.input_manager = InputManager()
-        self.level_managger = 0
-        self.ui_manager = 0
-        self.physics_manager = 0
+        # self.level_managger = 0 move to scene man
+        # self.ui_manager = 0 move to scene man
+        # self.physics_manager = 0 move to scene man
         self.deltatime_handler = 0
         self.event_manager = 0
+        # self.audio_manager = 0 move to scene man
+        # self.save_manager = 0 move to scene man
     
     def start(self):
         self.running = True
