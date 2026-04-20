@@ -6,3 +6,4 @@ class SceneManager:
         self.physics_manager = None
         self.camera_manager = None
         self.ui_manager = None
+        self.audio_manager = None

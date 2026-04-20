@@ -14,15 +14,10 @@ class VenatorMaliGame:
     
     def __init__(self):
         self.scene_manager = SceneManager()
-        # self.camera_manager = 0 move to scene man
         self.input_manager = InputManager()
-        # self.level_managger = 0 move to scene man
-        # self.ui_manager = 0 move to scene man
-        # self.physics_manager = 0 move to scene man
-        self.deltatime_handler = 0
-        self.event_manager = 0
-        # self.audio_manager = 0 move to scene man
-        # self.save_manager = 0 move to scene man
+        self.deltatime_handler = None
+        self.event_manager = None
+        self.save_manager = None
     
     def start(self):
         self.running = True
