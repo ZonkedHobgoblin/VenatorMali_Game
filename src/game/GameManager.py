@@ -15,7 +15,6 @@ class VenatorMaliGame:
     def __init__(self):
         self.scene_manager = SceneManager()
         self.input_manager = InputManager()
-        self.deltatime_handler = None
         self.event_manager = None
         self.save_manager = None
     

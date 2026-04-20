@@ -4,7 +4,7 @@ Base game object class for other scripts to use
 """
 import pygame
 class GameObject:
-    def __init__(self, x:float, y:float, width:float, height:float):
+    def __init__(self, object_id:int, x:float, y:float, width:float, height:float):
         # Rendering stuff
         self.sprite_handler = None # needs to pass json file or path to handler for sprite sheet
         self.z_index = 0 # 0 for background, 1 for the same index level as player, 2 for foreground
