@@ -6,6 +6,7 @@ import logging
 import pygame
 from game.managers.SceneManager import SceneManager
 from game.managers.InputManager import InputManager
+from game.managers.LevelManager import LevelManager     
 from dev import settings
 
 logger = logging.getLogger(__name__)
