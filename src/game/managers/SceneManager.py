@@ -1,9 +1,11 @@
-
+"""
+SceneManager.py - 26/04/26
+"""
 
 class SceneManager:
     def __init__(self):
         self.level_manager = None
-        self.physics_manager = None
+        self.physics_manager = 
         self.camera_manager = None
         self.ui_manager = None
         self.audio_manager = None

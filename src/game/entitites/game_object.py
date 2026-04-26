@@ -1,5 +1,5 @@
 """
-game_object.py - 18/04/26
+game_object.py - 26/04/26
 Base game object class for other scripts to use
 """
 import pygame
