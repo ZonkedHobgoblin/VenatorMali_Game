@@ -11,6 +11,7 @@ class GameObject:
         
         self.pos = pygame.math.Vector2(x, y)
         self.vel = pygame.math.Vector2(0, 0)
+        self.accel = pygame.math.Vector2(0, 0)
         self.hitbox_rect = pygame.FRect(0,0,width, height)
         self.hitbox_rect.center = (self.pos.x, self.pos.y)
         

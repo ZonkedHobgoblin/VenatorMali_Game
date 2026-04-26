@@ -65,7 +65,7 @@ class VenatorMaliGame:
             
         pygame.quit()
             
-    # Temp
+    # Temp function - should be delegated onto Renderer Class
     def draw(self) -> None:
         # START screen + UI should be fixed-size, so they draw directly to the window.
         if True:
