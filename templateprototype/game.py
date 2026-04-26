@@ -67,7 +67,7 @@ class Game:
 
         self.debug_draw_tile_regions = False
 
-        self.load_level(self.level_index, f"level{self.level_index}")
+        self.load_level(self.level_index, "lv1")  # load first level}")
 
     def load_level(self, index: int, level_file: str = "level1") -> None:
         # You can expand this into a list of levels later.
@@ -321,6 +321,7 @@ class Game:
         if self.debug_draw_tile_regions:
             debug_txt = self.font.render("F3 Debug: solid green, hazard red, ladder blue", True, (240, 230, 140))
             target.blit(debug_txt, (20, 54))
+            
 
         # Boss health (when alive)
         if self.level.boss and self.level.boss.alive():
