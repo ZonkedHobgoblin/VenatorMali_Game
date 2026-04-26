@@ -4,7 +4,7 @@ Physics engine for scene manager
 """
 import pygame
 class PhysicsManager:
-    def __init__(self, scene_objects: list = [], gravity: float = 9.81, dampening: float = 0.0):
+    def __init__(self, scene_objects: list = [], gravity: float = 9.81, dampening: pygame.math.Vector2 = pygame.math.Vector2(0, 0)):
         self.physics_objects = [] # full of object IDs, should get each object and their pos from scene man using the id
         self.physics_objects.extend(scene_objects)
         self.physics_gravity = gravity
@@ -34,9 +34,12 @@ class PhysicsManager:
             phys_obj.accel.y += self.physics_gravity
             phys_obj.vel += phys_obj.accel * dt
             
-            # Apply dampening to vel
-            dampening_mult = max(0.0, 1.0 - (self.physics_dampening * dt))
-            phys_obj.vel *= dampening_mult
+            # Apply horizontal and vertical dampening to vel
+            friction_mult = max(0.0, 1.0 - (self.physics_dampening.x * dt))
+            phys_obj.vel *= friction_mult
+            
+            drag_mult = max(0.0, 1.0 - (self.physics_dampening.y * dt))
+            phys_obj.vel.y *= drag_mult
             
             # Remove micro movements
             if abs(phys_obj.vel.x) < 0.01:
