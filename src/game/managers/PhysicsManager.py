@@ -4,7 +4,7 @@ Physics engine for scene manager
 """
 import pygame
 class PhysicsManager:
-    def __init__(self, scene_objects: list, gravity: float = -9.81, dampening: float = 0.0):
+    def __init__(self, scene_objects: list = [], gravity: float = 9.81, dampening: float = 0.0):
         self.physics_objects = [] # full of object IDs, should get each object and their pos from scene man using the id
         self.physics_objects.extend(scene_objects)
         self.physics_gravity = gravity
@@ -19,10 +19,10 @@ class PhysicsManager:
         self.physics_objects.extend(scene_objects)
         
     def calculate_phys(self, delta_time: float) -> None:
-        self._inegrate(delta_time)
+        self._integrate(delta_time)
         self._check_collisions()
     
-    def _inegrate(self, dt: float) -> None:
+    def _integrate(self, dt: float) -> None:
         """Handle our velocity and stuff"""
         for phys_obj in self.physics_objects:
             if "physics_object" not in phys_obj.tags:
@@ -32,11 +32,17 @@ class PhysicsManager:
             
             # Apply accel to vel
             phys_obj.accel.y += self.physics_gravity
-            phys_obj.vel = phys_obj.accel * dt
+            phys_obj.vel += phys_obj.accel * dt
             
             # Apply dampening to vel
             dampening_mult = max(0.0, 1.0 - (self.physics_dampening * dt))
             phys_obj.vel *= dampening_mult
+            
+            # Remove micro movements
+            if abs(phys_obj.vel.x) < 0.01:
+                phys_obj.vel.x = 0
+            if abs(phys_obj.vel.y) < 0.01:
+                phys_obj.vel.y = 0
             
             # Apply vel to pos and update positions
             phys_obj.pos += phys_obj.vel * dt

@@ -61,6 +61,7 @@ class VenatorMaliGame:
             if self.paused is True:
                 continue
             
+            self.scene_manager.update(dt)
             self.draw()
             
         pygame.quit()
