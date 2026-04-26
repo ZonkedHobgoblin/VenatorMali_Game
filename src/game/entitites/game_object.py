@@ -21,9 +21,3 @@ class GameObject:
         
         # tags, like enemy or damagable or anything
         self.tags = []
-        
-    def update(self, dt:float):
-        if not self.is_active:
-            return
-            
-        self.hitbox_rect.center = (self.pos.x, self.pos.y)

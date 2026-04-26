@@ -2,6 +2,7 @@
 PhysicsManager.py - 20/04/26
 Physics engine for scene manager
 """
+import pygame
 class PhysicsManager:
     def __init__(self, scene_objects: list, gravity: float, dampening: float, ):
         self.physics_objects = [] # full of object IDs, should get each object and their pos from scene man using the id
@@ -24,12 +25,14 @@ class PhysicsManager:
     def _inegrate(self, dt: float) -> None:
         """Handle our velocity and stuff"""
         for phys_obj in self.physics_objects:
-            start_pos = phys_obj.pos
-            vel = phys_obj.vel
-            accel = phys_obj.accel
+            if "physics_object" not in phys_obj.tags:
+                continue
             
-            
-        
+            phys_obj.accel.y += self.physics_gravity
+            phys_obj.vel = phys_obj.accel * dt
+            phys_obj.pos += phys_obj.vel * dt
+            phys_obj.accel = pygame.math.Vector2(0, 0)
+            phys_obj.hitbox_rect.center = (phys_obj.pos.x, phys_obj.pos.y)
     
     def _check_collisions(self) -> None:
         """Make sure collisions are handled"""
