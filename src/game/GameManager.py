@@ -1,5 +1,5 @@
 """
-GameManager.py - 18/04/26
+GameManager.py - 26/04/26
 Initalises pygame and managers, then starts core game loop and managers
 """
 import logging
@@ -14,15 +14,9 @@ class VenatorMaliGame:
     
     def __init__(self):
         self.scene_manager = SceneManager()
-        # self.camera_manager = 0 move to scene man
         self.input_manager = InputManager()
-        # self.level_managger = 0 move to scene man
-        # self.ui_manager = 0 move to scene man
-        # self.physics_manager = 0 move to scene man
-        self.deltatime_handler = 0
-        self.event_manager = 0
-        # self.audio_manager = 0 move to scene man
-        # self.save_manager = 0 move to scene man
+        self.event_manager = None
+        self.save_manager = None
     
     def start(self):
         self.running = True
@@ -67,14 +61,17 @@ class VenatorMaliGame:
             if self.paused is True:
                 continue
             
+            self.scene_manager.update(dt)
             self.draw()
             
         pygame.quit()
             
-    # Temp
+    # Temp function - should be delegated onto Renderer Class
     def draw(self) -> None:
-        # START screen + UI should be fixed-size, so they draw directly to the window.
-        if True:
-            self.window.fill((20, 22, 30))
-            pygame.display.flip()
-            return
+        self.window.fill((20, 22, 30))
+        
+        for obj in self.scene_manager.scene_objs:
+            if obj.is_active and not obj.is_dead:
+                pygame.draw.rect(self.window, (255, 50, 50), obj.hitbox_rect)
+        
+        pygame.display.flip()
