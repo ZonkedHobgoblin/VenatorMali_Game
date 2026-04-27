@@ -18,7 +18,7 @@ class SceneManager:
         # test stuff VVV
         self.TestObject = GameObject(0, 440, 100, 50, 50)
         self.TestObject.tags.append("physics_object")
-        self.TestObject.accel += pygame.math.Vector2(5000, 0)
+        self.TestObject.accel += pygame.math.Vector2(50, 0)
         
         self.TestObject2 = GameObject(0, 854, 100, 50, 50)
         self.TestObject2.tags.append("physics_object")
