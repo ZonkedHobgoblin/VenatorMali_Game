@@ -3,7 +3,6 @@ from __future__ import annotations
 import pygame
 from ..animation import Animation
 
-
 class Enemy(pygame.sprite.Sprite):
     """Base enemy class.
 

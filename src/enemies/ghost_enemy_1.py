@@ -8,20 +8,28 @@ from ..weapons.pistol import Pistol
 from .enemy import Enemy
 
 
-class ShooterEnemy(Enemy):
+class Ghost1(Enemy):
     """Stationary shooter that fires towards the player."""
 
     def __init__(self, pos: tuple[int, int]):
         super().__init__()
 
-        sheet = load_image("enemy_shooter_sheet.png")
+        idle_sheet = load_image("ghost1_idle.png")
+        die_sheet = load_image("ghost1_die.png")
+        attack_sheet = load_image("ghost1_attack.png")
 
         idle_frames = slice_sprite_sheet_row(
-            sheet, row=0, frame_w=32, frame_h=32,
-            num_frames=8, stride_x=95, start_x=0, start_y=0, clamp=True
+            idle_sheet, row=0, frame_w=20, frame_h=31,
+            num_frames=4, stride_x=24, start_x=2, start_y=0, clamp=True
+        )
+        
+        dying_frames = slice_sprite_sheet_row(
+            die_sheet, row=0, frame_w=16, frame_h=31,
+            num_frames=4, stride_x=21, start_x=22, start_y=0, clamp=True
         )
 
         self.idle_anim = Animation(idle_frames, frame_duration=0.25, loop=True)
+        self.die_anim = Animation(dying_frames, frame_duration=0.25, loop=False)
         self.current_anim = self.idle_anim
 
         self.image = self.current_anim.image
@@ -35,6 +43,7 @@ class ShooterEnemy(Enemy):
 
         # Optional: only shoot if player is roughly in range
         self.range_px = 520
+    
 
     def update(self, dt: float, level, player, enemy_bullets: pygame.sprite.Group) -> None:
         direction = self.face_player(player)
@@ -53,3 +62,5 @@ class ShooterEnemy(Enemy):
                 self.rect.centery + 4
             )
             self.weapon.shoot(enemy_bullets, muzzle, direction)
+        
+        
