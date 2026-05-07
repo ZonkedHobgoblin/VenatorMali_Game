@@ -6,8 +6,7 @@ Catches exceptions, logs them and quits the script
 import logging
 import sys
 from src.game.GameManager import VenatorMaliGame
-from dev.dev_utils import LoggerSetup
-
+from src.dev.dev_utils import LoggerSetup
 if __name__ == "__main__":
     try:
         LoggerSetup.initialize()

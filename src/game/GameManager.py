@@ -4,10 +4,10 @@ Initalises pygame and managers, then starts core game loop and managers
 """
 import logging
 import pygame
-from game.managers.SceneManager import SceneManager
-from game.managers.InputManager import InputManager
-from game.managers.LevelManager import LevelManager     
-from dev import settings
+from src.game.managers.SceneManager import SceneManager
+from src.game.managers.InputManager import InputManager
+from src.game.managers.LevelManager import LevelManager     
+from src.dev import settings
 
 logger = logging.getLogger(__name__)
 class VenatorMaliGame:
