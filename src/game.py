@@ -57,7 +57,7 @@ class Game:
         self.camera_y = 0.0
 
         # World content
-        self.level_index = 1
+        self.level_index = 3
         self.level: Level | None = None
         self.player = None
 
@@ -92,6 +92,9 @@ class Game:
             self.draw()
 
         pygame.quit()
+    
+    
+
 
     # ------------------ Events ------------------
     def handle_events(self) -> None:
