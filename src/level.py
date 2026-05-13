@@ -9,7 +9,7 @@ from typing import Any
 import pygame
 
 from . import settings
-from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1
+from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1, KnightEnemy
 from .pickups import create_pickup
 from .utils import asset_path, load_image
 
@@ -70,6 +70,8 @@ class Level:
     EXIT_FLAG = 94
     SHOOTER_ENEMY_SPAWN = 95
     GHOST1_SPAWN = 96
+    KNIGHT_SPAWN = 97
+
 
     def __init__(self, level_name: str):
         self.level_name = level_name
@@ -250,6 +252,8 @@ class Level:
                     self.enemies.add(NormalEnemy((world_x, world_y - (32 - tile_size))))
                 elif tile_id == self.GHOST1_SPAWN:
                     self.enemies.add(Ghost1((world_x, world_y - (32 - tile_size))))
+                elif tile_id == self.KNIGHT_SPAWN:
+                    self.enemies.add(KnightEnemy((world_x, world_y - (32 - tile_size))))
                 elif tile_id == self.PICKUP_HEALTH:
                     self.pickups.add(create_pickup("health", world_x, world_y - (32 - tile_size)))
                 elif tile_id == self.BOSS_SPAWN:
@@ -466,6 +470,8 @@ class Level:
                     self.enemies.add(ShooterEnemy((x, y - 32)))
                 elif name == "ghost1":
                     self.enemies.add(Ghost1((x, y - 32)))
+                elif name == "knight":
+                    self.enemies.add(KnightEnemy((x, y - 32)))
                 elif name == "boss":
                     self.boss = BossEnemy((x, y - 64))
                 elif name in {"health", "ammo", "shield"}:
