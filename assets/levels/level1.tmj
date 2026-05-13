@@ -588,11 +588,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"gruppeprosjekt\/free (1).tsx"
+         "source":"..\/..\/..\/tiles\/gruppeprosjekt\/free (1).tsx"
         }, 
         {
          "firstgid":97,
-         "source":"gruppeprosjekt\/background.tsx"
+         "source":"..\/..\/..\/tiles\/gruppeprosjekt\/background.tsx"
         }, 
         {
          "columns":0,
@@ -611,7 +611,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/moon.png",
+                 "image":"..\/..\/..\/moon.png",
                  "imageheight":128,
                  "imagewidth":128
                 }],
@@ -634,7 +634,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/blobk.png",
+                 "image":"..\/..\/..\/blobk.png",
                  "imageheight":58,
                  "imagewidth":43
                 }],
@@ -657,7 +657,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/blyt.png",
+                 "image":"..\/..\/..\/blyt.png",
                  "imageheight":215,
                  "imagewidth":161
                 }],
@@ -680,7 +680,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/tree1.png",
+                 "image":"..\/..\/..\/tree1.png",
                  "imageheight":256,
                  "imagewidth":128
                 }],
@@ -703,7 +703,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/tree2.png",
+                 "image":"..\/..\/..\/tree2.png",
                  "imageheight":256,
                  "imagewidth":192
                 }],
@@ -726,7 +726,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/big tree1.png",
+                 "image":"..\/..\/..\/big tree1.png",
                  "imageheight":256,
                  "imagewidth":192
                 }],
@@ -749,7 +749,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/tree5.png",
+                 "image":"..\/..\/..\/tree5.png",
                  "imageheight":132,
                  "imagewidth":133
                 }],
@@ -772,7 +772,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/tombpng.png",
+                 "image":"..\/..\/..\/tombpng.png",
                  "imageheight":163,
                  "imagewidth":128
                 }],
@@ -795,7 +795,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/sto.png",
+                 "image":"..\/..\/..\/sto.png",
                  "imageheight":192,
                  "imagewidth":96
                 }],
@@ -818,7 +818,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/tomb2.png",
+                 "image":"..\/..\/..\/tomb2.png",
                  "imageheight":163,
                  "imagewidth":128
                 }],
@@ -841,7 +841,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/kirke.png",
+                 "image":"..\/..\/..\/kirke.png",
                  "imageheight":192,
                  "imagewidth":128
                 }],
@@ -864,7 +864,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/jojojo9.png",
+                 "image":"..\/..\/..\/jojojo9.png",
                  "imageheight":153,
                  "imagewidth":131
                 }],
@@ -887,7 +887,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/l.png",
+                 "image":"..\/..\/..\/l.png",
                  "imageheight":39,
                  "imagewidth":58
                 }],
@@ -910,7 +910,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/lo.png",
+                 "image":"..\/..\/..\/lo.png",
                  "imageheight":39,
                  "imagewidth":58
                 }],
@@ -919,7 +919,7 @@
         {
          "columns":24,
          "firstgid":127,
-         "image":"gruppeprosjekt\/graveyardtilesetnew\/background.jpg",
+         "image":"..\/..\/..\/tiles\/gruppeprosjekt\/graveyardtilesetnew\/background.jpg",
          "imageheight":426,
          "imagewidth":794,
          "margin":0,
@@ -946,7 +946,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/Artwork.png",
+                 "image":"..\/..\/..\/Artwork.png",
                  "imageheight":163,
                  "imagewidth":128
                 }],
@@ -969,7 +969,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/cdcd.png",
+                 "image":"..\/..\/..\/cdcd.png",
                  "imageheight":192,
                  "imagewidth":96
                 }],
@@ -978,7 +978,7 @@
         {
          "columns":4,
          "firstgid":441,
-         "image":"..\/lkpng.png",
+         "image":"..\/..\/..\/lkpng.png",
          "imageheight":163,
          "imagewidth":128,
          "margin":0,
@@ -1005,7 +1005,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/gr.png",
+                 "image":"..\/..\/..\/gr.png",
                  "imageheight":67,
                  "imagewidth":63
                 }],
@@ -1028,7 +1028,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/ghost character- shiru0shi\/16x28 px.png"
+                 "image":"..\/..\/..\/ghost character- shiru0shi\/16x28 px.png"
                 }],
          "tilewidth":16
         }, 
@@ -1049,7 +1049,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/ghost character- shiru0shi\/16x28gif.gif"
+                 "image":"..\/..\/..\/ghost character- shiru0shi\/16x28gif.gif"
                 }],
          "tilewidth":16
         }, 
@@ -1070,7 +1070,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/..\/..\/..\/..\/Downloads\/ghostGifRun1.gif",
+                 "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/ghostGifRun1.gif",
                  "imageheight":130,
                  "imagewidth":126
                 }],
@@ -1093,7 +1093,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/enemies\/[Kimbulworks] Enemy Collections #7 - Ghost\/Ghost\/Idle\/Ghost Idle.gif",
+                 "image":"..\/..\/..\/enemies\/[Kimbulworks] Enemy Collections #7 - Ghost\/Ghost\/Idle\/Ghost Idle.gif",
                  "imageheight":48,
                  "imagewidth":48
                 }],
@@ -1116,7 +1116,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"..\/enemies\/ghost character- shiru0shi\/16x28 px.png",
+                 "image":"..\/..\/..\/enemies\/ghost character- shiru0shi\/16x28 px.png",
                  "imageheight":28,
                  "imagewidth":16
                 }],
@@ -1139,7 +1139,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "image":"gruppeprosjekt\/health.png",
+                 "image":"..\/..\/..\/tiles\/gruppeprosjekt\/health.png",
                  "imageheight":32,
                  "imagewidth":64
                 }],
@@ -1148,7 +1148,7 @@
         {
          "columns":2,
          "firstgid":468,
-         "image":"gruppeprosjekt\/health.png",
+         "image":"..\/..\/..\/tiles\/gruppeprosjekt\/health.png",
          "imageheight":32,
          "imagewidth":64,
          "margin":0,
