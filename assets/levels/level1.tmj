@@ -193,6 +193,18 @@
                  "width":0,
                  "x":208,
                  "y":60
+                },
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"hellhound",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":140
                 }],
          "opacity":1,
          "type":"objectgroup",
