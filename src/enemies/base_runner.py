@@ -17,6 +17,7 @@ class BaseRunningEnemy(Enemy):
         # getting the total width of the image and dividing it by the nubmber of frames
         # so for example 320px / 5 frames = 64px for the stride_x
         # idk if thats fully correct but it seems to be
+        # also make sure you set the frame width and height, usually the height of the image is the same for width as well, usually 64px or 32px
         
         idle_sheet = load_image("put your idle sheet here")
         self.anim_idle = Animation(slice_sprite_sheet_row(

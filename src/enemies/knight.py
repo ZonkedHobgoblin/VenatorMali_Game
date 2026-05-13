@@ -41,14 +41,14 @@ class KnightEnemy(Enemy):
 
         self.pos = pygame.Vector2(self.rect.topleft)
         self.vel = pygame.Vector2(-80.0, 0.0)
-        self.base_speed = 80.0
+        self.base_speed = 70.0
 
-        self.health = 35
+        self.health = 100
         self.on_ground = False
         self.facing = -1
 
         self.attack_range = 40 
-        self.attack_damage = 10 
+        self.attack_damage = 25 
 
     def set_state(self, new_state: str, new_anim: Animation):
         if self.state != new_state:

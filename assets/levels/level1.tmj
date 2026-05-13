@@ -169,6 +169,18 @@
                  "width":0,
                  "x":208,
                  "y":75
+                },
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"paragon",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":95
                 }],
          "opacity":1,
          "type":"objectgroup",

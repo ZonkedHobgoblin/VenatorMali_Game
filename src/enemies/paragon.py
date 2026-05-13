@@ -7,7 +7,7 @@ from .. import settings
 from .enemy import Enemy
 
 
-class EyeGuy(Enemy):
+class ParagonEnemy(Enemy):
     """enemy that chases and attacks the player"""
     def __init__(self, pos: tuple[int, int]):
         super().__init__()
@@ -18,24 +18,24 @@ class EyeGuy(Enemy):
         # so for example 320px / 5 frames = 64px for the stride_x
         # idk if thats fully correct but it seems to be
         
-        idle_sheet = load_image("Beholder_fly.png")
+        idle_sheet = load_image("Paragon-idle.png")
         self.anim_idle = Animation(slice_sprite_sheet_row(
-            idle_sheet, row=0, frame_w=32, frame_h=32, num_frames=5, stride_x=64, start_x=0, start_y=0, clamp=True
+            idle_sheet, row=0, frame_w=64, frame_h=64, num_frames=6, stride_x=64, start_x=0, start_y=0, clamp=True
         ), frame_duration=0.15, loop=True) 
 
-        run_sheet = load_image("Beholder_fly.png")
+        run_sheet = load_image("Paragon-walk.png")
         self.anim_run = Animation(slice_sprite_sheet_row(
-            run_sheet, row=0, frame_w=32, frame_h=32, num_frames=5, stride_x=64, start_x=0, start_y=0, clamp=True
+            run_sheet, row=0, frame_w=64, frame_h=64, num_frames=6, stride_x=64, start_x=0, start_y=0, clamp=True
         ), frame_duration=0.10, loop=True)
 
-        attack_sheet = load_image("Beholder_attack.png")
+        attack_sheet = load_image("Paragon-attack2.png")
         self.anim_attack = Animation(slice_sprite_sheet_row(
-            attack_sheet, row=0, frame_w=32, frame_h=32, num_frames=5, stride_x=64, start_x=0, start_y=0, clamp=True
+            attack_sheet, row=0, frame_w=64, frame_h=64, num_frames=7, stride_x=64, start_x=0, start_y=0, clamp=True
         ), frame_duration=0.10, loop=False)
 
-        die_sheet = load_image("Beholder_death.png")
+        die_sheet = load_image("Paragon-death.png")
         self.anim_die = Animation(slice_sprite_sheet_row(
-            die_sheet, row=0, frame_w=32, frame_h=32, num_frames=9, stride_x=64, start_x=0, start_y=0, clamp=True
+            die_sheet, row=0, frame_w=64, frame_h=64, num_frames=7, stride_x=64, start_x=0, start_y=0, clamp=True
         ), frame_duration=0.15, loop=False)
         
         self.state = "RUN" # so its got 4 states: IDLE, RUN, ATTACK & DIE (idk if we bneed idle)
@@ -46,14 +46,14 @@ class EyeGuy(Enemy):
 
         self.pos = pygame.Vector2(self.rect.topleft)
         self.vel = pygame.Vector2(-80.0, 0.0)
-        self.base_speed = 120.0 # speed here
+        self.base_speed = 30.0 # speed here
 
-        self.health = 35 # health here
+        self.health = 200 # health here
         self.on_ground = False
         self.facing = -1
 
-        self.attack_range = 40 
-        self.attack_damage = 10 
+        self.attack_range = 60 
+        self.attack_damage = 25 
 
     def set_state(self, new_state: str, new_anim: Animation):
         if self.state != new_state:
