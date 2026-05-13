@@ -181,6 +181,18 @@
                  "width":0,
                  "x":208,
                  "y":95
+                },
+                {
+                 "height":0,
+                 "id":12,
+                 "name":"rat",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":208,
+                 "y":60
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -6,5 +6,6 @@ from .ghost_enemy_1 import Ghost1
 from .knight import KnightEnemy
 from .eyeguy import EyeGuy
 from .paragon import ParagonEnemy
+from .rat import RatEnemy
 
-__all__ = ["NormalEnemy", "ShooterEnemy", "BossEnemy", "Ghost1", "KnightEnemy", "EyeGuy", "ParagonEnemy"]
+__all__ = ["NormalEnemy", "ShooterEnemy", "BossEnemy", "Ghost1", "KnightEnemy", "EyeGuy", "ParagonEnemy", "RatEnemy"]
