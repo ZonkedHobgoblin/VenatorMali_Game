@@ -13,11 +13,12 @@ class BaseRunningEnemy(Enemy):
         super().__init__()
 
         # sprite sheets
-        # so num_frames is how many frames on the sheet, stride is the gap (i think) between each frame which you work out by
+        # so num_frames is how many frames on the sheet, stride is the gap (i think) between each start of the frames which you work out by
         # getting the total width of the image and dividing it by the nubmber of frames
         # so for example 320px / 5 frames = 64px for the stride_x
         # idk if thats fully correct but it seems to be
         # also make sure you set the frame width and height, usually the height of the image is the same for width as well, usually 64px or 32px
+        # and if there is a gap between the first frame, add that to start_x
         
         idle_sheet = load_image("put your idle sheet here")
         self.anim_idle = Animation(slice_sprite_sheet_row(
