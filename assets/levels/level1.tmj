@@ -470,7 +470,7 @@
          "name":"enemies",
          "objects":[
                 {
-                 "gid":2147484112,
+                 "gid":2147484110,
                  "height":50,
                  "id":3,
                  "name":"Flying enemy",
@@ -483,7 +483,7 @@
                  "y":148.25
                 }, 
                 {
-                 "gid":2147484112,
+                 "gid":2147484110,
                  "height":50,
                  "id":9,
                  "name":"flying_enemy2",
@@ -496,7 +496,7 @@
                  "y":371
                 }, 
                 {
-                 "gid":2147484112,
+                 "gid":2147484110,
                  "height":45,
                  "id":12,
                  "name":"Flying_enemy3",
@@ -509,7 +509,7 @@
                  "y":209
                 }, 
                 {
-                 "gid":465,
+                 "gid":463,
                  "height":48,
                  "id":7,
                  "name":"Ghost_enemy",
@@ -522,7 +522,7 @@
                  "y":383
                 }, 
                 {
-                 "gid":465,
+                 "gid":463,
                  "height":48,
                  "id":8,
                  "name":"Ghost_2",
@@ -548,7 +548,7 @@
          "name":"Health",
          "objects":[
                 {
-                 "gid":468,
+                 "gid":465,
                  "height":44.3333333333333,
                  "id":15,
                  "name":"Health 3",
@@ -561,7 +561,7 @@
                  "y":216.666666666667
                 }, 
                 {
-                 "gid":468,
+                 "gid":465,
                  "height":44.3333333333333,
                  "id":17,
                  "name":"Health 2",
@@ -1021,48 +1021,6 @@
              "width":1
             },
          "margin":0,
-         "name":"16x28 px",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":28,
-         "tiles":[
-                {
-                 "id":0,
-                 "image":"..\/..\/..\/ghost character- shiru0shi\/16x28 px.png"
-                }],
-         "tilewidth":16
-        }, 
-        {
-         "columns":0,
-         "firstgid":463,
-         "grid":
-            {
-             "height":1,
-             "orientation":"orthogonal",
-             "width":1
-            },
-         "margin":0,
-         "name":"16x28gif",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":28,
-         "tiles":[
-                {
-                 "id":0,
-                 "image":"..\/..\/..\/ghost character- shiru0shi\/16x28gif.gif"
-                }],
-         "tilewidth":16
-        }, 
-        {
-         "columns":0,
-         "firstgid":464,
-         "grid":
-            {
-             "height":1,
-             "orientation":"orthogonal",
-             "width":1
-            },
-         "margin":0,
          "name":"ghostGifRun1",
          "spacing":0,
          "tilecount":1,
@@ -1078,7 +1036,7 @@
         }, 
         {
          "columns":0,
-         "firstgid":465,
+         "firstgid":463,
          "grid":
             {
              "height":1,
@@ -1101,30 +1059,7 @@
         }, 
         {
          "columns":0,
-         "firstgid":466,
-         "grid":
-            {
-             "height":1,
-             "orientation":"orthogonal",
-             "width":1
-            },
-         "margin":0,
-         "name":"ghost",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":28,
-         "tiles":[
-                {
-                 "id":0,
-                 "image":"..\/..\/..\/enemies\/ghost character- shiru0shi\/16x28 px.png",
-                 "imageheight":28,
-                 "imagewidth":16
-                }],
-         "tilewidth":16
-        }, 
-        {
-         "columns":0,
-         "firstgid":467,
+         "firstgid":464,
          "grid":
             {
              "height":1,
@@ -1147,7 +1082,7 @@
         }, 
         {
          "columns":2,
-         "firstgid":468,
+         "firstgid":465,
          "image":"..\/..\/..\/tiles\/gruppeprosjekt\/health.png",
          "imageheight":32,
          "imagewidth":64,
