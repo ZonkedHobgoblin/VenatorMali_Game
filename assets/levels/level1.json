@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"level1.tmj"
+         "target":"level1.json"
         }
     },
  "height":15,
@@ -56,6 +56,12 @@
          "id":4,
          "name":"ground",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"solid",
+                 "type":"bool",
+                 "value":true
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":200,

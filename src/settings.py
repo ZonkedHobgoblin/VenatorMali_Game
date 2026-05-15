@@ -7,12 +7,12 @@ WINDOW_HEIGHT = 540
 FPS = 60
 
 # Logical render size (game draws to this)
-SCALE = 4  # 2 means pixels appear 2x bigger on the window
+SCALE = 2  # 2 means pixels appear 2x bigger on the window
 RENDER_WIDTH  = WINDOW_WIDTH  // SCALE
 RENDER_HEIGHT = WINDOW_HEIGHT // SCALE
 
 # Tile size (CSV grid uses this)
-TILE_SIZE = 16
+TILE_SIZE = 32
 
 # Physics tuning
 GRAVITY = 1800.0          # pixels per second^2
