@@ -1,4 +1,3 @@
-# enemies/enemy_shooter.py
 from __future__ import annotations
 import pygame
 
