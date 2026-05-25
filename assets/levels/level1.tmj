@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"level1.tmj"
+        }
+    },
  "height":15,
  "infinite":false,
  "layers":[
@@ -386,7 +394,7 @@
                 {
                  "height":54.5,
                  "id":12,
-                 "name":"enemy_runner",
+                 "name":"Ghost",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
@@ -443,7 +451,7 @@
                 {
                  "height":41,
                  "id":18,
-                 "name":"enemy_runner",
+                 "name":"Ghost",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
@@ -491,7 +499,7 @@
                 {
                  "height":42.5,
                  "id":22,
-                 "name":"enemy_runner",
+                 "name":"ghost Idle",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
@@ -803,19 +811,6 @@
          "tilecount":20,
          "tileheight":32,
          "tilewidth":32
-        }, 
-        {
-         "columns":3,
-         "firstgid":499,
-         "image":"..\/images\/ghost1_idle.png",
-         "imageheight":31,
-         "imagewidth":97,
-         "margin":0,
-         "name":"ghost1_idle",
-         "spacing":0,
-         "tilecount":3,
-         "tileheight":27,
-         "tilewidth":27
         }],
  "tilewidth":32,
  "type":"map",
