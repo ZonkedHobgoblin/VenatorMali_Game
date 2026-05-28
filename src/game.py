@@ -117,7 +117,8 @@ class Game:
 
                 elif self.state == "LEVEL_COMPLETE":
                     if event.key == pygame.K_RETURN:
-                        self.load_level(self.level_index)
+                        self.level_index += 1
+                        self.load_level(self.level_index, f"level{self.level_index}")
                         self.state = "PLAYING"
 
                 if self.state == "PLAYING":
@@ -301,8 +302,8 @@ class Game:
         elif self.state == "LEVEL_COMPLETE":
             self.draw_overlay(target=self.window)
             self.draw_center_text("LEVEL COMPLETE!", y=220, big=True, target=self.window)
-            self.draw_center_text("Press ENTER to replay (add more levels!)", y=290, target=self.window)
-            
+            self.draw_center_text("Press ENTER to continue to the next level", y=290, target=self.window)
+
         # DEBUG: show all idle frames in a row
 
 
