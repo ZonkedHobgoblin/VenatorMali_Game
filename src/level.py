@@ -9,7 +9,7 @@ from typing import Any
 import pygame
 
 from . import settings
-from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1, KnightEnemy, EyeGuy, ParagonEnemy, RatEnemy, HellHoundEnemy
+from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1, Ghost2, KnightEnemy, EyeGuy, ParagonEnemy, RatEnemy, HellHoundEnemy
 from .pickups import create_pickup
 from .utils import asset_path, load_image
 
@@ -470,6 +470,8 @@ class Level:
                     self.enemies.add(ShooterEnemy((x, y - 32)))
                 elif name == "ghost1":
                     self.enemies.add(Ghost1((x, y - 32)))
+                elif name == "ghost2":
+                    self.enemies.add(Ghost2((x, y-32)))
                 elif name == "knight":
                     self.enemies.add(KnightEnemy((x, y - 32)))
                 elif name == "paragon":
