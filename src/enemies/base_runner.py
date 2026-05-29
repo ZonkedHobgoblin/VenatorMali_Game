@@ -1,4 +1,3 @@
-# enemies/enemy_shooter.py
 from __future__ import annotations
 import pygame
 
@@ -8,65 +7,71 @@ from .. import settings
 from .enemy import Enemy
 
 
-class Ghost1(Enemy):
-    """ Runner enemy that attacks the player."""
-
+class BaseRunningEnemy(Enemy):
+    """enemy that chases and attacks the player"""
     def __init__(self, pos: tuple[int, int]):
         super().__init__()
 
-        idle_sheet = load_image("ghost1_idle.png")
-        die_sheet = load_image("ghost1_die.png")
-        attack_sheet = load_image("ghost1_attack.png")
-
-        idle_frames = slice_sprite_sheet_row(
-            idle_sheet, row=0, frame_w=20, frame_h=31,
-            num_frames=4, stride_x=24, start_x=2, start_y=0, clamp=True
-        )
+        # sprite sheets
+        # so num_frames is how many frames on the sheet, stride is the gap (i think) between each start of the frames which you work out by
+        # getting the total width of the image and dividing it by the nubmber of frames
+        # so for example 320px / 5 frames = 64px for the stride_x
+        # idk if thats fully correct but it seems to be
+        # also make sure you set the frame width and height, usually the height of the image is the same for width as well, usually 64px or 32px
+        # and if there is a gap between the first frame, add that to start_x
         
-        dying_frames = slice_sprite_sheet_row(
-            die_sheet, row=0, frame_w=19, frame_h=31,
-            num_frames=4, stride_x=20, start_x=22, start_y=0, clamp=True
-        )
+        idle_sheet = load_image("put your idle sheet here")
+        self.anim_idle = Animation(slice_sprite_sheet_row(
+            idle_sheet, row=0, frame_w=32, frame_h=32, num_frames=8, stride_x=64, start_x=0, start_y=0, clamp=True
+        ), frame_duration=0.15, loop=True) 
+
+        run_sheet = load_image("put the run sheet here")
+        self.anim_run = Animation(slice_sprite_sheet_row(
+            run_sheet, row=0, frame_w=32, frame_h=32, num_frames=5, stride_x=64, start_x=0, start_y=0, clamp=True
+        ), frame_duration=0.10, loop=True)
+
+        attack_sheet = load_image("attack sheet goes here")
+        self.anim_attack = Animation(slice_sprite_sheet_row(
+            attack_sheet, row=0, frame_w=32, frame_h=32, num_frames=3, stride_x=64, start_x=0, start_y=0, clamp=True
+        ), frame_duration=0.10, loop=False)
+
+        die_sheet = load_image("die sheet goes here")
+        self.anim_die = Animation(slice_sprite_sheet_row(
+            die_sheet, row=0, frame_w=32, frame_h=32, num_frames=13, stride_x=64, start_x=0, start_y=0, clamp=True
+        ), frame_duration=0.15, loop=False)
         
-        attacking_frames = slice_sprite_sheet_row(
-            attack_sheet, row=0, frame_w=21, frame_h= 31, 
-            num_frames=7, stride_x=21, start_x= 6, start_y=0, clamp=True
-        )
-
-        self.state = "IDLE"
-        self.idle_anim = Animation(idle_frames, frame_duration=0.25, loop=True)
-        self.die_anim = Animation(dying_frames, frame_duration=0.25, loop=False)
-        self.attack_anim = Animation(attacking_frames, frame_duration=0.25, loop=False)
-        self.current_anim = self.idle_anim
-
+        self.state = "RUN" # so its got 4 states: IDLE, RUN, ATTACK & DIE (idk if we bneed idle)
+        self.current_anim = self.anim_run
+        
         self.image = self.current_anim.image
         self.rect = self.image.get_rect(topleft=pos)
 
         self.pos = pygame.Vector2(self.rect.topleft)
         self.vel = pygame.Vector2(-80.0, 0.0)
-        self.base_speed = 80.0
+        self.base_speed = 80.0 # speed here
 
-        self.health = 30
+        self.health = 35 # health here
         self.on_ground = False
         self.facing = -1
-        
-        self.attack_range = 10
-        self.attack_damage = 10
-        
-    def change_state(self, new_state: str, new_anim: Animation):
+
+        self.attack_range = 40 
+        self.attack_damage = 10 
+
+    def set_state(self, new_state: str, new_anim: Animation):
         if self.state != new_state:
             self.state = new_state
             self.current_anim = new_anim
             if hasattr(self.current_anim, 'reset'):
                 self.current_anim.reset()
-                
+
     def take_damage(self, amount: int) -> None:
         self.health -= amount
         if self.health <= 0 and self.state != "DIE":
-            self.change_state("DIE", self.die_anim)
+            self.set_state("DIE", self.anim_die)
             self.vel.x = 0
 
     def update(self, dt: float, level, player) -> None:
+
         if self.state != "DIE":
             dist_to_player = player.rect.centerx - self.rect.centerx
             abs_dist = abs(dist_to_player)
@@ -74,11 +79,11 @@ class Ghost1(Enemy):
 
             if self.state != "ATTACK":
                 if abs_dist <= self.attack_range and y_dist < 40:
-                    self.change_state("ATTACK", self.attack_anim)
+                    self.set_state("ATTACK", self.anim_attack)
                     self.vel.x = 0
                     self.facing = 1 if dist_to_player > 0 else -1
                 else:
-                    self.change_state("RUN", self.idle_anim)
+                    self.set_state("RUN", self.anim_run)
                     self.vel.x = self.base_speed * self.facing
 
             elif self.state == "ATTACK":
@@ -89,22 +94,21 @@ class Ghost1(Enemy):
                     if abs_dist <= self.attack_range and y_dist < 40:
                         if hasattr(player, 'take_damage'):
                             player.take_damage(self.attack_damage)
-                    self.change_state("IDLE", self.idle_anim)
-        
-        # gravity
+                    
+                    self.set_state("IDLE", self.anim_idle) 
+
         self.vel.y += settings.GRAVITY * dt
 
-        # horizontal (float)
         self.pos.x += self.vel.x * dt
         self.rect.x = round(self.pos.x)
 
         if level.rect_collides_solid(self.rect):
             self.pos.x -= self.vel.x * dt
             self.rect.x = round(self.pos.x)
-            self.vel.x *= -1
-            self.facing *= -1
+            if self.state == "RUN":
+                self.facing *= -1
+                self.vel.x = self.base_speed * self.facing
 
-        # vertical (float)
         self.pos.y += self.vel.y * dt
         self.rect.y = round(self.pos.y)
 
@@ -125,7 +129,7 @@ class Ghost1(Enemy):
             probe = self.rect.move(0, 1)
             if level.get_solid_hits(probe):
                 self.on_ground = True
-
+                
         # animation
         self.apply_anim(dt)
 
