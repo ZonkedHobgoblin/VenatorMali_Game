@@ -35,6 +35,11 @@
    <property name="solid" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="53">
+  <properties>
+   <property name="solid" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="67">
   <properties>
    <property name="solid" type="bool" value="true"/>

@@ -1,5 +1,4 @@
 # Run & Gun Side-Scroller Prototype (Pygame-CE)
-TEST
 
 A small **teaching-friendly** prototype for a first-year *run-and-gun* side-scrolling shooter.
 
