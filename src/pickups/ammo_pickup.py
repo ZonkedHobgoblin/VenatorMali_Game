@@ -1,4 +1,5 @@
 from .pickup import Pickup
+from ..settings import AMMO_PICKUP_AMOUNT
 
 
 class AmmoPickup(Pickup):
@@ -9,5 +10,5 @@ class AmmoPickup(Pickup):
     ANIMATED = False
 
     def apply(self, player):
-        player.ammo += 20
+        player.add_ammo(AMMO_PICKUP_AMOUNT)
         self.kill()

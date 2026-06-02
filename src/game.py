@@ -316,7 +316,9 @@ class Game:
         hp_ratio = self.player.health / self.player.max_health if self.player.max_health > 0 else 0
         pygame.draw.rect(target, (80, 220, 120), (x, y, int(w * hp_ratio), h))
         txt = self.font.render(f"HP: {self.player.health}/{self.player.max_health}", True, (230, 230, 230))
+        txt2 = self.font.render(f"Ammo: {self.player.ammo}", True, (230, 230, 230))
         target.blit(txt, (x, y + 22))
+        target.blit(txt2, (x, y + 44))
 
         if self.debug_draw_tile_regions:
             debug_txt = self.font.render("F3 Debug: solid green, hazard red, ladder blue", True, (240, 230, 140))

@@ -35,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         run_frame_duration: float = 0.20,
         jump_frame_duration: float = 0.12,
         max_health: int = settings.PLAYER_MAX_HEALTH,
+        max_ammo: int = settings.PLAYER_MAX_AMMO,
         move_speed: float = settings.PLAYER_SPEED,
         jump_speed: float = settings.JUMP_SPEED,
         weapon: Weapon | None = None,
@@ -105,6 +106,8 @@ class Player(pygame.sprite.Sprite):
 
         self.weapon = weapon if weapon is not None else Pistol()
         self.health = max_health
+        self.ammo = round(max_ammo / 2)
+        self.max_ammo = max_ammo
         self.max_health = max_health
         self.invuln_time = 0.0
 
@@ -119,6 +122,9 @@ class Player(pygame.sprite.Sprite):
 
     def heal(self, amount: int) -> None:
         self.health = min(self.max_health, self.health + amount)
+        
+    def add_ammo(self, amount: int) -> None:
+        self.ammo = min(self.max_ammo, self.ammo + amount)
 
     def take_damage(self, amount: int) -> None:
         if self.invuln_time > 0:
@@ -163,6 +169,9 @@ class Player(pygame.sprite.Sprite):
             self.vel.y *= 0.45
 
     def try_shoot(self, bullets_group: pygame.sprite.Group) -> bool:
+        if self.ammo <= 0:
+            return False
+        self.ammo -= 1
         muzzle = pygame.Vector2(
             self.rect.centerx + self.muzzle_dx * self.facing,
             self.rect.centery + self.muzzle_dy,
