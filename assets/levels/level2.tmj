@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"level2.json"
+         "target":"level2.tmj"
         }
     },
  "height":15,
@@ -169,8 +169,8 @@
                  "type":"",
                  "visible":true,
                  "width":50,
-                 "x":4654,
-                 "y":278
+                 "x":4656,
+                 "y":310
                 }, 
                 {
                  "height":49,
@@ -229,8 +229,8 @@
                  "type":"",
                  "visible":true,
                  "width":56,
-                 "x":5761,
-                 "y":213
+                 "x":5965,
+                 "y":410
                 }, 
                 {
                  "height":85,
@@ -278,7 +278,7 @@
                  "visible":true,
                  "width":47,
                  "x":846,
-                 "y":244
+                 "y":292
                 }, 
                 {
                  "height":37,
@@ -289,8 +289,8 @@
                  "type":"",
                  "visible":true,
                  "width":41,
-                 "x":3837,
-                 "y":139
+                 "x":3829,
+                 "y":158
                 }, 
                 {
                  "height":28,
@@ -301,8 +301,8 @@
                  "type":"",
                  "visible":true,
                  "width":28,
-                 "x":4972,
-                 "y":353
+                 "x":4945,
+                 "y":386
                 }, 
                 {
                  "height":37,
@@ -325,8 +325,32 @@
                  "type":"",
                  "visible":true,
                  "width":49,
-                 "x":5449,
-                 "y":165
+                 "x":5442,
+                 "y":183
+                }, 
+                {
+                 "height":29,
+                 "id":34,
+                 "name":"ammo",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":51,
+                 "x":2730,
+                 "y":349
+                }, 
+                {
+                 "height":38,
+                 "id":35,
+                 "name":"ammo",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":34,
+                 "x":5723,
+                 "y":382
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -460,7 +484,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":34,
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",
