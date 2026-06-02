@@ -36,22 +36,20 @@ class Game:
         self.big_font = pygame.font.SysFont("consolas", 44, bold=True)
 
         # Audio
-        self.sfx_shoot = load_sound("shoot.mp3")
-        self.sfx_pickup = load_sound("pickup.wav")
-        self.sfx_hurt = load_sound("hurt.mp3")
-        self.sfx_reload = load_sound("reload.mp3")
-        self.sfx_knife = load_sound("knife.mp3")
+        self.sfx_shoot = load_sound("player_shoot.wav")
+        self.sfx_pickup = load_sound("player_pickup.wav")
+        self.sfx_hurt = load_sound("player_hurt.wav")
+        self.sfx_reload = load_sound("player_reload.wav")
         self.sfx_shoot.set_volume(settings.SFX_VOLUME)
         self.sfx_reload.set_volume(settings.SFX_VOLUME)
         self.sfx_knife.set_volume(settings.SFX_VOLUME)
         self.sfx_pickup.set_volume(settings.SFX_VOLUME)
         self.sfx_hurt.set_volume(settings.SFX_VOLUME)
 
-        music_path = asset_path("audio", "music.wav")
-        pygame.mixer.music.load(music_path)
-        pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
-        if not settings.SOUND_OFF:
-            pygame.mixer.music.play(-1)  # loop
+        self.audio_tracks = [
+                            asset_path("audio", "level1_track.wav"),
+                            asset_path("audio", "level2_track.wav"),
+                            asset_path("audio", "level3_track.wav")]
 
         # Game state
         self.state = "START"  # START, PLAYING, GAME_OVER, LEVEL_COMPLETE, MENU
@@ -65,6 +63,8 @@ class Game:
         self.level_index = 1
         self.level: Level | None = None
         self.player = None
+        
+        print(self.level_index)
 
         self.bullets = pygame.sprite.Group()
         self.boss_bullets = pygame.sprite.Group()
@@ -85,6 +85,15 @@ class Game:
         # Reset camera so the start feels consistent
         self.camera_x = 0.0
         self.camera_y = 0.0
+        
+        self.current_track = self.audio_tracks[self.level_index - 1]
+        self.play_music(self.current_track)
+        
+    def play_music(self, audio_track):
+        pygame.mixer.music.load(audio_track)
+        pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
+        if not settings.SOUND_OFF:
+            pygame.mixer.music.play(-1)
 
     # ------------------ Main loop ------------------
     def run(self) -> None:
@@ -97,8 +106,6 @@ class Game:
             self.draw()
 
         pygame.quit()
-    
-    
 
 
     # ------------------ Events ------------------
@@ -127,7 +134,9 @@ class Game:
                     if event.key == pygame.K_RETURN:
                         self.level_index += 1
                         self.load_level(self.level_index, f"level{self.level_index}")
+                        self.state = "MUSIC_CHANGE"
                         self.state = "PLAYING"
+                        
 
                 if self.state == "PLAYING":
                     # self.player is guaranteed in PLAYING
