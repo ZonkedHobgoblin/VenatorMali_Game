@@ -8,6 +8,8 @@ from typing import Any
 
 import pygame
 
+from src.enemies.ghost_enemy_3 import Ghost3
+
 from . import settings
 from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1, Ghost2, KnightEnemy, EyeGuy, ParagonEnemy, RatEnemy, HellHoundEnemy
 from .pickups import create_pickup
@@ -478,6 +480,8 @@ class Level:
                     self.enemies.add(Ghost1((x, y - self.tile_size)))
                 elif name == "ghost2":
                     self.enemies.add(Ghost2((x, y - self.tile_size)))
+                elif name == "ghost3":
+                    self.enemies.add(Ghost3((x, y - self.tile_size)))
                 elif name == "knight":
                     self.enemies.add(KnightEnemy((x, y - self.tile_size)))
                 elif name == "paragon":

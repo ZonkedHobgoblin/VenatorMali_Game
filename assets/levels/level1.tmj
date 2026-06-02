@@ -570,6 +570,18 @@
                  "width":20,
                  "x":5166,
                  "y":296
+                }, 
+                {
+                 "height":34,
+                 "id":47,
+                 "name":"ghost3",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":36,
+                 "x":3174.33333333333,
+                 "y":380.666666666667
                 }],
          "offsetx":0.666666666666657,
          "offsety":1.33333333333331,
@@ -591,7 +603,7 @@
          "y":0
         }],
  "nextlayerid":29,
- "nextobjectid":47,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",
