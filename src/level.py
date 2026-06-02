@@ -9,7 +9,7 @@ from typing import Any
 import pygame
 
 from . import settings
-from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1, Ghost2, KnightEnemy, EyeGuy, ParagonEnemy, RatEnemy, HellHoundEnemy
+from .enemies import BossEnemy, NormalEnemy, ShooterEnemy, Ghost1, Ghost2, Ghost3, KnightEnemy, EyeGuy, ParagonEnemy, RatEnemy, HellHoundEnemy
 from .pickups import create_pickup
 from .utils import asset_path, load_image
 
@@ -103,7 +103,7 @@ class Level:
         self.tilesets: list[dict[str, Any]] = []
         self.default_tiles: list[pygame.Surface] = []
         self.tile_properties_by_gid: dict[int, dict[str, Any]] = {}
-        self.tile_layers: list[list[list[int]]] = []
+
         # Legacy CSV support only
         self.tilesheet = load_image("tileset.png")
         self.default_tiles = self.slice_tilesheet(self.tilesheet, settings.TILE_SIZE)
@@ -188,8 +188,7 @@ class Level:
             name = prop.get("name")
             if not name:
                 continue
-            normalized_name = str(name).strip().lower()
-            props[normalized_name] = cls._coerce_property_value(prop.get("value"), prop.get("type"))
+            props[name] = cls._coerce_property_value(prop.get("value"), prop.get("type"))
         return props
 
     def load_level(self, level_name: str) -> None:
@@ -213,8 +212,11 @@ class Level:
         self.solid_rects.clear()
         self.hazard_tiles.clear()
         self.ladder_rects.clear()
-        self.tile_layers.clear()
         self.enemies.empty()
+        self.pickups.empty()
+        self.boss = None
+        self.exit_rect = None
+        self.player_spawn = (0, 0)
 
     # ------------------------------------------------------------------
     # Legacy CSV loader
@@ -274,35 +276,26 @@ class Level:
         tile_w = int(data["tilewidth"])
         tile_h = int(data["tileheight"])
 
-        if tile_w != tile_h:
+        if tile_w != settings.TILE_SIZE or tile_h != settings.TILE_SIZE:
             raise ValueError(
-                f"Map tiles must be square, but found {tile_w}x{tile_h}."
+                f"Map tile size is {tile_w}x{tile_h}, but settings.TILE_SIZE is {settings.TILE_SIZE}."
             )
 
-        # Use the map's native tile size for this level.
-        self.tile_size = tile_w
-        self.pixel_width = self.width * self.tile_size
-        self.pixel_height = self.height * self.tile_size
+        self.pixel_width = self.width * settings.TILE_SIZE
+        self.pixel_height = self.height * settings.TILE_SIZE
 
         self.reset_runtime_state()
         self.load_tiled_tilesets(data, map_dir)
 
-        
-
         ground_layer = None
-        raw_tile_layers: list[dict[str, Any]] = []
         object_layers: list[dict[str, Any]] = []
 
         for layer in data.get("layers", []):
             layer_type = layer.get("type")
             layer_name = layer.get("name", "")
 
-            if layer_type == "tilelayer":
-                raw_tile_layers.append(layer)
-                
-                if layer_name == "ground":
-                    ground_layer = layer
-                    
+            if layer_type == "tilelayer" and layer_name == "ground":
+                ground_layer = layer
             elif layer_type == "objectgroup":
                 object_layers.append(layer)
 
@@ -310,7 +303,6 @@ class Level:
             raise ValueError("Tiled map is missing a tile layer named 'ground'.")
 
         self.grid = self.decode_tile_layer_data(ground_layer)
-        self.tile_layers = [self.decode_tile_layer_data(l) for l in raw_tile_layers]
         self.build_property_regions_from_ground()
         self.load_object_layers(object_layers)
 
@@ -322,12 +314,12 @@ class Level:
         if len(raw) != self.width * self.height:
             raise ValueError("Ground layer tile count does not match map width/height.")
 
-        ground: list[list[int]] = []
+        grid: list[list[int]] = []
         for y in range(self.height):
             start = y * self.width
             row = [int(v) for v in raw[start:start + self.width]]
-            ground.append(row)
-        return ground
+            grid.append(row)
+        return grid
 
     def load_tiled_tilesets(self, map_data: dict[str, Any], map_dir: str) -> None:
         self.tilesets = []
@@ -348,6 +340,8 @@ class Level:
             for local_id, props in tileset_info["tile_properties"].items():
                 self.tile_properties_by_gid[firstgid + local_id] = props
 
+        self.tilesets.sort(key=lambda t: t["firstgid"])
+
     def load_embedded_tileset(self, ts: dict[str, Any], map_dir: str) -> dict[str, Any]:
         image_rel = ts.get("image")
         if not image_rel:
@@ -356,10 +350,10 @@ class Level:
         image_path = os.path.normpath(os.path.join(map_dir, image_rel))
         sheet = pygame.image.load(image_path).convert_alpha()
 
-        tile_w = int(ts.get("tilewidth", self.tile_size))
-        tile_h = int(ts.get("tileheight", self.tile_size))
-        if tile_w != self.tile_size or tile_h != self.tile_size:
-            raise ValueError("Tileset tile size must match level tile size.")
+        tile_w = int(ts.get("tilewidth", settings.TILE_SIZE))
+        tile_h = int(ts.get("tileheight", settings.TILE_SIZE))
+        if tile_w != settings.TILE_SIZE or tile_h != settings.TILE_SIZE:
+            raise ValueError("Tileset tile size must match settings.TILE_SIZE.")
 
         margin = int(ts.get("margin", 0))
         spacing = int(ts.get("spacing", 0))
@@ -368,7 +362,7 @@ class Level:
 
         tiles = self.slice_tilesheet(
             sheet,
-            self.tile_size,
+            settings.TILE_SIZE,
             margin=margin,
             spacing=spacing,
             tile_count=tilecount,
@@ -388,10 +382,10 @@ class Level:
         root = ET.parse(tsx_path).getroot()
         tsx_dir = os.path.dirname(tsx_path)
 
-        tile_w = int(root.attrib.get("tilewidth", self.tile_size))
-        tile_h = int(root.attrib.get("tileheight", self.tile_size))
-        if tile_w != self.tile_size or tile_h != self.tile_size:
-            raise ValueError("TSX tile size must match level tile size.")
+        tile_w = int(root.attrib.get("tilewidth", settings.TILE_SIZE))
+        tile_h = int(root.attrib.get("tileheight", settings.TILE_SIZE))
+        if tile_w != settings.TILE_SIZE or tile_h != settings.TILE_SIZE:
+            raise ValueError("TSX tile size must match settings.TILE_SIZE.")
 
         margin = int(root.attrib.get("margin", 0))
         spacing = int(root.attrib.get("spacing", 0))
@@ -406,7 +400,7 @@ class Level:
         sheet = pygame.image.load(image_path).convert_alpha()
         tiles = self.slice_tilesheet(
             sheet,
-            self.tile_size,
+            settings.TILE_SIZE,
             margin=margin,
             spacing=spacing,
             tile_count=tilecount,
@@ -419,14 +413,14 @@ class Level:
             prop_node = tile_node.find("properties")
             props: dict[str, Any] = {}
             if prop_node is not None:
-                raw_props: list[dict[str, Any]] = []
                 for p in prop_node.findall("property"):
-                    raw_props.append({
-                        "name": p.attrib.get("name"),
-                        "type": p.attrib.get("type"),
-                        "value": p.attrib.get("value", p.text),
-                    })
-                props = self._parse_tiled_properties(raw_props)
+                    name = p.attrib.get("name")
+                    if not name:
+                        continue
+                    props[name] = self._coerce_property_value(
+                        p.attrib.get("value", p.text),
+                        p.attrib.get("type"),
+                    )
             tile_properties[local_id] = props
 
         return {
@@ -436,7 +430,7 @@ class Level:
         }
 
     def build_property_regions_from_ground(self) -> None:
-        tile_size = self.tile_size
+        tile_size = settings.TILE_SIZE
 
         for gy in range(self.height):
             for gx in range(self.width):
@@ -469,36 +463,38 @@ class Level:
                     continue
 
                 if name == "player":
-                    self.player_spawn = (x, y - self.tile_size)
+                    self.player_spawn = (x, y - 32)
                 elif name == "enemy_runner":
-                    self.enemies.add(NormalEnemy((x, y - self.tile_size)))
+                    self.enemies.add(NormalEnemy((x, y - 32)))
                 elif name == "enemy_shooter":
-                    self.enemies.add(ShooterEnemy((x, y - self.tile_size)))
+                    self.enemies.add(ShooterEnemy((x, y - 32)))
                 elif name == "ghost1":
-                    self.enemies.add(Ghost1((x, y - self.tile_size)))
+                    self.enemies.add(Ghost1((x, y - 32)))
                 elif name == "ghost2":
-                    self.enemies.add(Ghost2((x, y - self.tile_size)))
+                    self.enemies.add(Ghost2((x, y-32)))
+                elif name == "ghost3":
+                    self.enemies.add(Ghost3((x, y - 32)))
                 elif name == "knight":
-                    self.enemies.add(KnightEnemy((x, y - self.tile_size)))
+                    self.enemies.add(KnightEnemy((x, y - 32)))
                 elif name == "paragon":
-                    self.enemies.add(ParagonEnemy((x, y - self.tile_size)))
+                    self.enemies.add(ParagonEnemy((x, y - 32)))
                 elif name == "eyeguy":
-                    self.enemies.add(EyeGuy((x, y - self.tile_size)))
+                    self.enemies.add(EyeGuy((x, y - 32)))
                 elif name == "rat":
-                    self.enemies.add(RatEnemy((x, y - self.tile_size)))
+                    self.enemies.add(RatEnemy((x, y - 32)))
                 elif name == "hellhound":
-                    self.enemies.add(HellHoundEnemy((x, y - self.tile_size)))
+                    self.enemies.add(HellHoundEnemy((x, y - 32)))
                 elif name == "boss":
-                    self.boss = BossEnemy((x, y - (2 * self.tile_size)))
+                    self.boss = BossEnemy((x, y - 64))
                 elif name in {"health", "ammo", "shield"}:
                     self.pickups.add(create_pickup(name, x, y - 32))
                 elif name == "exit":
-                    width = int(obj.get("width", self.tile_size)) or self.tile_size
-                    height = int(obj.get("height", self.tile_size)) or self.tile_size
+                    width = int(obj.get("width", settings.TILE_SIZE)) or settings.TILE_SIZE
+                    height = int(obj.get("height", settings.TILE_SIZE)) or settings.TILE_SIZE
                     if width == 0:
-                        width = self.tile_size
+                        width = settings.TILE_SIZE
                     if height == 0:
-                        height = self.tile_size
+                        height = settings.TILE_SIZE
                     self.exit_rect = pygame.Rect(x, y - height, width, height)
 
     # ------------------------------------------------------------------
@@ -580,24 +576,23 @@ class Level:
         screen_height = surface.get_height()
         self.draw_backgrounds(surface, camera_x, screen_width, screen_height)
 
-        for grid in self.tile_layers:
-            for gy in range(self.height):
-                for gx in range(self.width):
-                    gid = grid[gy][gx]
-                    img = None
+        for gy in range(self.height):
+            for gx in range(self.width):
+                gid = self.grid[gy][gx]
+                img = None
 
-                    if self.tilesets:
+                if self.tilesets:
+                    img = self.get_tile_image(gid)
+                else:
+                    if gid in self.legacy_draw_ids:
                         img = self.get_tile_image(gid)
-                    else:
-                        if gid in self.legacy_draw_ids:
-                            img = self.get_tile_image(gid)
 
-                    if img is None:
-                        continue
+                if img is None:
+                    continue
 
-                    x = gx * self.tile_size - camera_x
-                    y = gy * self.tile_size - camera_y
-                    surface.blit(img, (x, y))
+                x = gx * settings.TILE_SIZE - camera_x
+                y = gy * settings.TILE_SIZE - camera_y
+                surface.blit(img, (x, y))
 
         if self.exit_rect:
             pygame.draw.rect(
