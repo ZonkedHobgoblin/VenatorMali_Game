@@ -419,14 +419,14 @@ class Level:
             prop_node = tile_node.find("properties")
             props: dict[str, Any] = {}
             if prop_node is not None:
+                raw_props: list[dict[str, Any]] = []
                 for p in prop_node.findall("property"):
-                    name = p.attrib.get("name")
-                    if not name:
-                        continue
-                    props[name] = self._coerce_property_value(
-                        p.attrib.get("value", p.text),
-                        p.attrib.get("type"),
-                    )
+                    raw_props.append({
+                        "name": p.attrib.get("name"),
+                        "type": p.attrib.get("type"),
+                        "value": p.attrib.get("value", p.text),
+                    })
+                props = self._parse_tiled_properties(raw_props)
             tile_properties[local_id] = props
 
         return {
