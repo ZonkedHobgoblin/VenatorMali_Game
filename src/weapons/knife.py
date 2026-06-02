@@ -20,6 +20,7 @@
 from __future__ import annotations
 import math
 import pygame
+from ..enemies.enemy import Enemy
 from .. import settings
 
 class Knife:
@@ -27,13 +28,16 @@ class Knife:
 
     def __init__(
         self,
-        cooldown: float = 0.15,
+        attack_cooldown = settings.KINFE_COOLDOWN
     ):
-        if cooldown < 0:
+        if attack_cooldown < 0:
             raise ValueError("cooldown must be >= 0")
 
-        self.cooldown = cooldown
+        self.cooldown = attack_cooldown
         self.cooldown_timer = 0.0
+        self.attack_range = settings.KNIFE_RANGE
+        self.attack_damage = settings.KNIFE_DAMAGE
+
 
     def update(self, dt: float) -> None:
         if self.cooldown_timer > 0.0:
@@ -45,12 +49,17 @@ class Knife:
     def _start_cooldown(self) -> None:
         self.cooldown_timer = self.cooldown
 
-    def attack(self, enemies: list) -> None:
+    def attack(self, player: pygame.sprite.Sprite, enemies: list[Enemy]) -> None:
         """Attack the nearest enemies."""
         if not self.can_attack():
             return
         
         for enemy in enemies:
-            enemy.take_damage(settings.KNIFE_DAMAGE)
+            dist_to_player = enemy.rect.centerx - player.rect.centerx
+            abs_dist = abs(dist_to_player)
+            y_dist = abs(player.rect.centery - enemy.rect.centery)
+            
+            if abs_dist < self.attack_range and y_dist < 40:
+                enemy.take_damage(settings.KNIFE_DAMAGE)
 
         self._start_cooldown()
