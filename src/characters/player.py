@@ -38,7 +38,7 @@ class Player(pygame.sprite.Sprite):
         max_ammo: int = settings.PLAYER_MAX_AMMO,
         move_speed: float = settings.PLAYER_SPEED,
         jump_speed: float = settings.JUMP_SPEED,
-        weapon: Weapon | None = None,
+        weapon: Weapon | Pistol | None = None,
     ):
         super().__init__()
 
