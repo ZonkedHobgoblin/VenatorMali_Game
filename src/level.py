@@ -23,6 +23,7 @@ class BackgroundLayer:
         self.y_offset = y_offset
 
 
+
 class Level:
     """
     Level loader with two modes:
