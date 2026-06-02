@@ -188,7 +188,8 @@ class Level:
             name = prop.get("name")
             if not name:
                 continue
-            props[name] = cls._coerce_property_value(prop.get("value"), prop.get("type"))
+            normalized_name = str(name).strip().lower()
+            props[normalized_name] = cls._coerce_property_value(prop.get("value"), prop.get("type"))
         return props
 
     def load_level(self, level_name: str) -> None:
