@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"level2.tmj"
+         "target":"level2.json"
         }
     },
  "height":15,
@@ -484,7 +484,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":36,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",

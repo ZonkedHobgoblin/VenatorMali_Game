@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+from operator import add
 import os
 import xml.etree.ElementTree as ET
 from typing import Any
@@ -494,7 +495,7 @@ class Level:
                 elif name == "hellhound":
                     self.enemies.add(HellHoundEnemy((x, y - self.tile_size)))
                 elif name == "boss":
-                    self.boss = BossEnemy((x, y - (2 * self.tile_size)))
+                    self.enemies.add(BossEnemy((x, y)))
                 elif name in {"health", "ammo", "shield"}:
                     self.pickups.add(create_pickup(name, x, y - 32))
                 elif name == "exit":
