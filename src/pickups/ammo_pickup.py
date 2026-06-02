@@ -4,8 +4,9 @@ from .pickup import Pickup
 class AmmoPickup(Pickup):
     IMAGE_PATH = "assets/pickups/ammo.png"
     PICKUP_NAME = "ammo"
-    FRAME_WIDTH = 32
-    FRAME_HEIGHT = 32
+    FRAME_WIDTH = 16
+    FRAME_HEIGHT = 15
+    ANIMATED = False
 
     def apply(self, player):
         player.ammo += 20
