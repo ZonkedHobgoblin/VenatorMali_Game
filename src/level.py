@@ -491,7 +491,7 @@ class Level:
                 elif name == "boss":
                     self.boss = BossEnemy((x, y - (2 * self.tile_size)))
                 elif name in {"health", "ammo", "shield"}:
-                    self.pickups.add(create_pickup("ammo", x, y - 32))
+                    self.pickups.add(create_pickup(name, x, y - 32))
                 elif name == "exit":
                     width = int(obj.get("width", self.tile_size)) or self.tile_size
                     height = int(obj.get("height", self.tile_size)) or self.tile_size

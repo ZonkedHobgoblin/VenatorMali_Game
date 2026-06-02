@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"level1.tmj"
+        }
+    },
  "height":15,
  "infinite":false,
  "layers":[
@@ -534,6 +542,42 @@
                  "width":30,
                  "x":6180.33333333333,
                  "y":362.166666666667
+                }, 
+                {
+                 "height":0,
+                 "id":44,
+                 "name":"ammo",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2117.33333333333,
+                 "y":243.333333333333
+                }, 
+                {
+                 "height":25.3333333333334,
+                 "id":45,
+                 "name":"ammo",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":26.666666666667,
+                 "x":3500.66666666667,
+                 "y":385.333333333333
+                }, 
+                {
+                 "height":22.6666666666667,
+                 "id":46,
+                 "name":"ammo",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20,
+                 "x":5166,
+                 "y":296
                 }],
          "offsetx":0.666666666666657,
          "offsety":1.33333333333331,
@@ -555,7 +599,7 @@
          "y":0
         }],
  "nextlayerid":29,
- "nextobjectid":44,
+ "nextobjectid":47,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",
