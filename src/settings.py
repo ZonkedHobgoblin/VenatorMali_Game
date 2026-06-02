@@ -33,4 +33,4 @@ CAMERA_LERP = 0.15        # 0..1 smoothing (higher = snappier)
 # Audio
 MUSIC_VOLUME = 0.25
 SFX_VOLUME = 0.45
-SOUND_OFF = True
+SOUND_OFF = False

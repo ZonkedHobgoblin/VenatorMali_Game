@@ -35,15 +35,16 @@ class Game:
         self.big_font = pygame.font.SysFont("consolas", 44, bold=True)
 
         # Audio
-        self.sfx_shoot = load_sound("shoot.wav")
-        self.sfx_pickup = load_sound("pickup.wav")
-        self.sfx_hurt = load_sound("hurt.wav")
+        self.sfx_shoot = load_sound("player_shoot.wav")
+        self.sfx_pickup = load_sound("player_pickup.wav")
+        self.sfx_hurt = load_sound("player_hurt.wav")
         self.sfx_shoot.set_volume(settings.SFX_VOLUME)
         self.sfx_pickup.set_volume(settings.SFX_VOLUME)
         self.sfx_hurt.set_volume(settings.SFX_VOLUME)
 
-        music_path = asset_path("audio", "music.wav")
-        pygame.mixer.music.load(music_path)
+        level1 = asset_path("audio", "level1_track.wav")
+        #level2 = asset_path("audio", "level2_track.wav")
+        pygame.mixer.music.load(level1)
         pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
         if not settings.SOUND_OFF:
             pygame.mixer.music.play(-1)  # loop
