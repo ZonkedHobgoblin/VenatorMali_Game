@@ -42,14 +42,10 @@ class Game:
         self.sfx_pickup.set_volume(settings.SFX_VOLUME)
         self.sfx_hurt.set_volume(settings.SFX_VOLUME)
 
-        self.level1 = asset_path("audio", "level1_track.wav")
-        self.level2 = asset_path("audio", "level2_track.wav")
-        self.level3 = asset_path("audio", "level3_track.wav")
-        
-        pygame.mixer.music.load(self.level1)
-        pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
-        if not settings.SOUND_OFF:
-            pygame.mixer.music.play(-1)  # loop
+        self.audio_tracks = [
+                            asset_path("audio", "level1_track.wav"),
+                            asset_path("audio", "level2_track.wav"),
+                            asset_path("audio", "level3_track.wav")]
 
         # Game state
         self.state = "START"  # START, PLAYING, GAME_OVER, LEVEL_COMPLETE
@@ -85,6 +81,15 @@ class Game:
         # Reset camera so the start feels consistent
         self.camera_x = 0.0
         self.camera_y = 0.0
+        
+        self.current_track = self.audio_tracks[self.level_index - 1]
+        self.play_music(self.current_track)
+        
+    def play_music(self, audio_track):
+        pygame.mixer.music.load(audio_track)
+        pygame.mixer.music.set_volume(settings.MUSIC_VOLUME)
+        if not settings.SOUND_OFF:
+            pygame.mixer.music.play(-1)
 
     # ------------------ Main loop ------------------
     def run(self) -> None:
