@@ -8,6 +8,7 @@ import pygame
 from ..utils import load_image, slice_sprite_sheet_row
 from ..weapons.weapon import Weapon
 from ..weapons.pistol import Pistol
+from ..weapons.knife import Knife
 from ..animation import Animation
 from .. import settings
 
@@ -38,7 +39,7 @@ class Player(pygame.sprite.Sprite):
         max_ammo: int = settings.PLAYER_MAX_AMMO,
         move_speed: float = settings.PLAYER_SPEED,
         jump_speed: float = settings.JUMP_SPEED,
-        weapon: Weapon | Pistol | None = None,
+        weapons: list | None = None,
     ):
         super().__init__()
 
@@ -104,7 +105,10 @@ class Player(pygame.sprite.Sprite):
         self.coyote_time = 0.10
         self.coyote_timer = 0.0
 
-        self.weapon = weapon if weapon is not None else Pistol()
+        self.weapons = weapons if weapons is not None else [Pistol(), Knife()]
+        self.weapon_index = 0
+        self.weapon = self.weapons[self.weapon_index]
+
         self.health = max_health
         self.ammo = round(max_ammo / 2)
         self.max_ammo = max_ammo
@@ -133,6 +137,10 @@ class Player(pygame.sprite.Sprite):
         self.invuln_time = 0.6
         if self.health < 0:
             self.health = 0
+            
+    def switch_weapon(self) -> None:
+        self.weapon_index = (self.weapon_index + 1) % len(self.weapons)
+        self.weapon = self.weapons[self.weapon_index]
 
     def is_dead(self) -> bool:
         return self.health <= 0
@@ -168,7 +176,13 @@ class Player(pygame.sprite.Sprite):
         if self.vel.y < 0:
             self.vel.y *= 0.45
 
-    def try_shoot(self, bullets_group: pygame.sprite.Group) -> bool:
+    def try_shoot(self, bullets_group: pygame.sprite.Group, enemies: list | pygame.sprite.Group | None = None) -> bool:
+        if isinstance(self.weapon, Knife):
+            if not self.weapon.can_attack():
+                return False
+            self.weapon.attack(self, enemies if enemies is not None else [])
+            return True
+
         if self.ammo <= 0:
             return False
         self.ammo -= 1
@@ -190,7 +204,8 @@ class Player(pygame.sprite.Sprite):
         if self.coyote_timer > 0:
             self.coyote_timer = max(0.0, self.coyote_timer - dt)
 
-        self.weapon.update(dt)
+        for w in self.weapons:
+            w.update(dt)
 
         touching_ladder = level.rect_overlaps_ladder(self.rect)
         self.on_ladder = touching_ladder and self.climb_intent != 0
