@@ -76,7 +76,7 @@
                  "opacity":1,
                  "rotation":0,
                  "type":"",
-                 "visible":false,
+                 "visible":true,
                  "width":0,
                  "x":91,
                  "y":167.333333333
@@ -356,18 +356,6 @@
                  "width":13.3333,
                  "x":2447.33335,
                  "y":115.333335
-                }, 
-                {
-                 "height":0,
-                 "id":46,
-                 "name":"player",
-                 "opacity":1,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":2016,
-                 "y":146
                 }, 
                 {
                  "height":9.33333,
