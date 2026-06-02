@@ -3,17 +3,17 @@
  <image source="../images/Fleshbound_Basic_Tileset.png" width="64" height="64"/>
  <tile id="0">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="1">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="2">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="3">
@@ -28,7 +28,7 @@
  </tile>
  <tile id="5">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="6">
@@ -43,17 +43,17 @@
  </tile>
  <tile id="8">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="9">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="10">
   <properties>
-   <property name="solid" type="bool" value="true"/>
+   <property name="solid" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="11">
