@@ -19,6 +19,7 @@ class Pickup(pygame.sprite.Sprite):
     FRAME_HEIGHT = 32
     FRAME_COUNT = 2
     ANIMATION_SPEED = 0.20  # seconds per frame
+    ANIMATED = True
 
     def __init__(self, x, y):
         super().__init__()
@@ -75,7 +76,7 @@ class Pickup(pygame.sprite.Sprite):
         """
         self.animation_timer += dt
 
-        if self.animation_timer >= self.ANIMATION_SPEED:
+        if self.animation_timer >= self.ANIMATION_SPEED and self.ANIMATED:
             self.animation_timer -= self.ANIMATION_SPEED
             self.current_frame = (self.current_frame + 1) % self.FRAME_COUNT
             self.image = self.frames[self.current_frame]

@@ -7,12 +7,12 @@ WINDOW_HEIGHT = 540
 FPS = 60
 
 # Logical render size (game draws to this)
-SCALE = 4  # 2 means pixels appear 2x bigger on the window
+SCALE = 2  # 2 means pixels appear 2x bigger on the window
 RENDER_WIDTH  = WINDOW_WIDTH  // SCALE
 RENDER_HEIGHT = WINDOW_HEIGHT // SCALE
 
 # Tile size (CSV grid uses this)
-TILE_SIZE = 16
+TILE_SIZE = 32
 
 # Physics tuning
 GRAVITY = 1800.0          # pixels per second^2
@@ -24,6 +24,8 @@ LADDER_SPEED = 180.0      # pixels per second
 BULLET_SPEED = 560.0 
 BULLET_LIFETIME = 1.2     # seconds
 PLAYER_MAX_HEALTH = 100
+PLAYER_MAX_AMMO = 12
+AMMO_PICKUP_AMOUNT = 4
 ENEMY_DAMAGE = 10
 BOSS_DAMAGE = 15
 
