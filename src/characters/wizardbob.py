@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 from .player import Player
+from ..weapons.knife import Knife
 from ..weapons.pistol import Pistol
 from .. import settings
 
@@ -35,5 +36,5 @@ class WizardBob(Player):
             max_health=settings.PLAYER_MAX_HEALTH,
             move_speed=settings.PLAYER_SPEED,
             jump_speed=settings.JUMP_SPEED,
-            weapon=Pistol(),
+            weapons=[Knife(), Pistol()],
         )

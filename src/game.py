@@ -9,6 +9,7 @@ from . import settings
 from .level import Level
 from .characters.wizardbob import WizardBob
 from .utils import load_sound, asset_path, clamp
+from .weapons.knife import Knife
 
 
 class Game:
@@ -35,10 +36,14 @@ class Game:
         self.big_font = pygame.font.SysFont("consolas", 44, bold=True)
 
         # Audio
-        self.sfx_shoot = load_sound("shoot.wav")
+        self.sfx_shoot = load_sound("shoot.mp3")
         self.sfx_pickup = load_sound("pickup.wav")
-        self.sfx_hurt = load_sound("hurt.wav")
+        self.sfx_hurt = load_sound("hurt.mp3")
+        self.sfx_reload = load_sound("reload.mp3")
+        self.sfx_knife = load_sound("knife.mp3")
         self.sfx_shoot.set_volume(settings.SFX_VOLUME)
+        self.sfx_reload.set_volume(settings.SFX_VOLUME)
+        self.sfx_knife.set_volume(settings.SFX_VOLUME)
         self.sfx_pickup.set_volume(settings.SFX_VOLUME)
         self.sfx_hurt.set_volume(settings.SFX_VOLUME)
 
@@ -125,10 +130,20 @@ class Game:
                     if event.key == pygame.K_w and not self.player.on_ladder:
                         self.player.queue_jump()
 
+                    if event.key == pygame.K_q:
+                        self.player.switch_weapon()
+
                     if event.key == pygame.K_SPACE:
-                        fired = self.player.try_shoot(self.bullets)
+                        target_enemies = list(self.level.enemies)
+                        if self.level.boss and self.level.boss.alive():
+                            target_enemies.append(self.level.boss)
+                            
+                        fired = self.player.try_shoot(self.bullets, target_enemies)
                         if fired and not settings.SOUND_OFF:
-                            self.sfx_shoot.play()
+                            if isinstance(self.player.weapon, Knife):
+                                self.sfx_knife.play()
+                            else:
+                                self.sfx_shoot.play()
 
             if event.type == pygame.KEYUP and self.state == "PLAYING":
                 if event.key == pygame.K_w:
@@ -173,10 +188,21 @@ class Game:
         # --- Player vs pickups
         hit_pickups = pygame.sprite.spritecollide(self.player, self.level.pickups, dokill=True)
         if hit_pickups:
+            played_reload = False
+            played_pickup = False
             for p in hit_pickups:
                 p.apply(self.player)
+                if p.PICKUP_NAME == "ammo":
+                    played_reload = True
+                else:
+                    played_pickup = True
             if not settings.SOUND_OFF:
-                self.sfx_pickup.play()
+                if played_reload:
+                    self.sfx_reload.play()
+                    played_reload = False
+                if played_pickup:
+                    self.sfx_pickup.play()
+                    played_reload = False
 
         # --- Player vs enemies contact damage
         if pygame.sprite.spritecollideany(self.player, self.level.enemies):
@@ -239,7 +265,7 @@ class Game:
             self.window.fill((20, 22, 30))
             self.draw_center_text("RUN & GUN PROTOTYPE", y=170, big=True, target=self.window)
             self.draw_center_text("Press ENTER to start", y=260, target=self.window)
-            self.draw_center_text("A/D move, W jump, SPACE shoot", y=310, target=self.window)
+            self.draw_center_text("A/D move, W jump, SPACE shoot, Q switch", y=310, target=self.window)
             pygame.display.flip()
             return
 
@@ -317,8 +343,11 @@ class Game:
         pygame.draw.rect(target, (80, 220, 120), (x, y, int(w * hp_ratio), h))
         txt = self.font.render(f"HP: {self.player.health}/{self.player.max_health}", True, (230, 230, 230))
         txt2 = self.font.render(f"Ammo: {self.player.ammo}", True, (230, 230, 230))
+        weapon_name = self.player.weapon.__class__.__name__
+        txt3 = self.font.render(f"Weapon: {weapon_name}", True, (230, 230, 230))
         target.blit(txt, (x, y + 22))
         target.blit(txt2, (x, y + 44))
+        target.blit(txt3, (x, y + 66))
 
         if self.debug_draw_tile_regions:
             debug_txt = self.font.render("F3 Debug: solid green, hazard red, ladder blue", True, (240, 230, 140))

@@ -23,11 +23,14 @@ LADDER_SPEED = 180.0      # pixels per second
 # Combat
 BULLET_SPEED = 560.0 
 BULLET_LIFETIME = 1.2     # seconds
-PLAYER_MAX_HEALTH = 100
+PLAYER_MAX_HEALTH = 1000
 PLAYER_MAX_AMMO = 12
 AMMO_PICKUP_AMOUNT = 4
 ENEMY_DAMAGE = 10
 BOSS_DAMAGE = 15
+KNIFE_RANGE = 50
+KNIFE_DAMAGE = 5
+KINFE_COOLDOWN = 0.1
 
 # Camera
 CAMERA_LERP = 0.15        # 0..1 smoothing (higher = snappier)
@@ -35,4 +38,4 @@ CAMERA_LERP = 0.15        # 0..1 smoothing (higher = snappier)
 # Audio
 MUSIC_VOLUME = 0.25
 SFX_VOLUME = 0.45
-SOUND_OFF = True
+SOUND_OFF = False
