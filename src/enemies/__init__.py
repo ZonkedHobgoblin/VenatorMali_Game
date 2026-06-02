@@ -9,6 +9,5 @@ from .eyeguy import EyeGuy
 from .paragon import ParagonEnemy
 from .rat import RatEnemy
 from .hellhound import HellHoundEnemy
-from .ghost_enemy_3 import Ghost3
 
-__all__ = ["NormalEnemy", "ShooterEnemy", "BossEnemy", "Ghost1", "Ghost2", "Ghost3", "KnightEnemy", "EyeGuy", "ParagonEnemy", "RatEnemy", "HellHoundEnemy"]
+__all__ = ["NormalEnemy", "ShooterEnemy", "BossEnemy", "Ghost1", "Ghost2", "KnightEnemy", "EyeGuy", "ParagonEnemy", "RatEnemy", "HellHoundEnemy"]
