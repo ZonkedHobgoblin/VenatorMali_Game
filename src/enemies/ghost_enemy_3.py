@@ -10,7 +10,6 @@ from .enemy import Enemy
 
 
 class Ghost3(Enemy):
-    """Stationary shooter that fires towards the player."""
 
     def __init__(self, pos: tuple[int, int]):
         super().__init__()
@@ -41,9 +40,8 @@ class Ghost3(Enemy):
 
         # weapon tuning
         self.weapon = Pistol()
-        self.weapon.cooldown = 0.9  # slower than player
+        self.weapon.cooldown = 0.6 
 
-        # Optional: only shoot if player is roughly in range
         self.range_px = 520
 
 
