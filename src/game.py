@@ -54,7 +54,7 @@ class Game:
             pygame.mixer.music.play(-1)  # loop
 
         # Game state
-        self.state = "START"  # START, PLAYING, GAME_OVER, LEVEL_COMPLETE
+        self.state = "START"  # START, PLAYING, GAME_OVER, LEVEL_COMPLETE, MENU
         self.running = True
 
         # Camera (in WORLD/logical pixels)
