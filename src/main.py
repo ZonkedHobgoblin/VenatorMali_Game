@@ -175,6 +175,9 @@ def main():
             if settings.SOUND_OFF:
                 settings.MUSIC_VOLUME = 0.0
                 settings.SFX_VOLUME = 0.0
+            else:
+                settings.MUSIC_VOLUME = 0.25
+                settings.SFX_VOLUME = 0.45
                 
             game = Game()
             game.run()
