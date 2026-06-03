@@ -12,7 +12,7 @@ from .utils import load_sound, asset_path, clamp
 from .weapons.knife import Knife
 
 
- class Game:
+class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
