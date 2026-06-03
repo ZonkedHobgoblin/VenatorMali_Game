@@ -17,8 +17,8 @@ class BossEnemy(Enemy):
 
         sheet = load_image("enemy_boss_sheet.png")
         frames = slice_sprite_sheet_row(
-            sheet, row=0, frame_w=64, frame_h=64,
-            num_frames=2, stride_x=64, start_x=0, start_y=0, clamp=True
+            sheet, row=0, frame_w=120, frame_h=150,
+            num_frames=2, stride_x=120, start_x=0, start_y=0, clamp=True
         )
 
         self.anim = Animation(frames, frame_duration=0.30, loop=True)
