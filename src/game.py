@@ -12,7 +12,7 @@ from .utils import load_sound, asset_path, clamp
 from .weapons.knife import Knife
 
 
-class Game:
+ class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
@@ -33,10 +33,10 @@ class Game:
 
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("consolas", 22)
-        self.big_font = pygame.font.SysFont("consolas", 44, bold=True)
+        self.big_font = pygame.font.Font("assets/chiller.ttf", 85)
 
         # Audio
-        self.sfx_shoot = load_sound("player_shoot.wav")
+        self.sfx_shoot = load_sound("shoot.mp3")
         self.sfx_pickup = load_sound("player_pickup.wav")
         self.sfx_hurt = load_sound("player_hurt.wav")
         self.sfx_reload = load_sound("reload.mp3")
@@ -53,7 +53,7 @@ class Game:
                             asset_path("audio", "level3_track.wav")]
 
         # Game state
-        self.state = "START"  # START, PLAYING, GAME_OVER, LEVEL_COMPLETE, MENU
+        self.state = "START"  # START, PLAYING, GAME_OVER, LEVEL_COMPLETE
         self.running = True
 
         # Camera (in WORLD/logical pixels)
@@ -105,8 +105,7 @@ class Game:
             self.handle_events()
             self.update(dt)
             self.draw()
-
-        pygame.quit()
+        pygame.mixer.music.stop()
 
 
     # ------------------ Events ------------------
@@ -133,10 +132,13 @@ class Game:
 
                 elif self.state == "LEVEL_COMPLETE":
                     if event.key == pygame.K_RETURN:
-                        self.level_index += 1
-                        self.load_level(self.level_index, f"level{self.level_index}")
-                        self.state = "MUSIC_CHANGE"
-                        self.state = "PLAYING"
+                        if self.level_index >= 3:
+                            self.running = False
+                        else:
+                            self.level_index += 1
+                            self.load_level(self.level_index, f"level{self.level_index}")
+                            self.state = "MUSIC_CHANGE"
+                            self.state = "PLAYING"
                         
 
                 if self.state == "PLAYING":
@@ -277,7 +279,7 @@ class Game:
         # START screen + UI should be fixed-size, so they draw directly to the window.
         if self.state == "START":
             self.window.fill((20, 22, 30))
-            self.draw_center_text("RUN & GUN PROTOTYPE", y=170, big=True, target=self.window)
+            self.draw_center_text("venator mali", y=170, big=True, target=self.window)
             self.draw_center_text("Press ENTER to start", y=260, target=self.window)
             self.draw_center_text("A/D move, W jump, SPACE shoot, Q switch", y=310, target=self.window)
             pygame.display.flip()
